@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Audio-Element (unsichtbar) -->
+  <audio id="myAudio" src="audio.mp3" preload="auto"></audio>
+
+  <!-- Play / Pause Button Overlay -->
+  <button id="playBtn" class="play-button" aria-label="Audio abspielen">
+    <svg id="playIcon" viewBox="0 0 24 24" width="48" height="48">
+      <polygon points="5,3 19,12 5,21" fill="currentColor"/>
+    </svg>
+    <svg id="pauseIcon" viewBox="0 0 24 24" width="48" height="48" style="display: none;">
+      <rect x="5" y="4" width="4" height="16" fill="currentColor"/>
+      <rect x="15" y="4" width="4" height="16" fill="currentColor"/>
+    </svg>
+  </button>
+
+  <script>
+    const audio = document.getElementById('myAudio');
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+
+    playBtn.addEventListener('click', () => {
+      if (audio.paused) {
+        audio.play();
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+      } else {
+        audio.pause();
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+      }
+    });
+
+    audio.addEventListener('ended', () => {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+    });
+  </script>
+</body>
+</html>
