@@ -2,25 +2,76 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
   <title>Audio Player</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-  <!-- Audio-Element (unsichtbar) -->
-  <audio id="myAudio" src="audio.mp3" preload="auto"></audio>
+  <!-- Hintergrundbild -->
+  <img
+    src="background.jpg"
+    class="background"
+    alt=""
+    aria-hidden="true"
+  >
 
-  <!-- Play / Pause Button Overlay -->
-  <button id="playBtn" class="play-button" aria-label="Audio abspielen">
-    <svg id="playIcon" viewBox="0 0 24 24" width="48" height="48">
-      <polygon points="5,3 19,12 5,21" fill="currentColor"/>
+  <!-- Audio-Element -->
+  <audio
+    id="myAudio"
+    src="audio.mp3"
+    preload="auto"
+  ></audio>
+
+  <!-- Play / Pause Button -->
+  <button
+    id="playBtn"
+    class="play-button"
+    type="button"
+    aria-label="Audio abspielen"
+  >
+
+    <!-- Play Icon -->
+    <svg
+      id="playIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <polygon
+        points="5,3 19,12 5,21"
+        fill="currentColor"
+      />
     </svg>
-    <svg id="pauseIcon" viewBox="0 0 24 24" width="48" height="48" style="display: none;">
-      <rect x="5" y="4" width="4" height="16" fill="currentColor"/>
-      <rect x="15" y="4" width="4" height="16" fill="currentColor"/>
+
+    <!-- Pause Icon -->
+    <svg
+      id="pauseIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      style="display: none;"
+    >
+      <rect
+        x="5"
+        y="4"
+        width="4"
+        height="16"
+        fill="currentColor"
+      />
+
+      <rect
+        x="15"
+        y="4"
+        width="4"
+        height="16"
+        fill="currentColor"
+      />
     </svg>
+
   </button>
+
 
   <script>
     const audio = document.getElementById('myAudio');
@@ -28,22 +79,59 @@
     const playIcon = document.getElementById('playIcon');
     const pauseIcon = document.getElementById('pauseIcon');
 
-    playBtn.addEventListener('click', () => {
+    // Audio starten / pausieren
+    playBtn.addEventListener('click', async () => {
+
       if (audio.paused) {
-        audio.play();
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
+
+        try {
+          await audio.play();
+
+          playIcon.style.display = 'none';
+          pauseIcon.style.display = 'block';
+
+          playBtn.setAttribute(
+            'aria-label',
+            'Audio pausieren'
+          );
+
+        } catch (error) {
+          console.error('Audio konnte nicht abgespielt werden:', error);
+        }
+
       } else {
+
         audio.pause();
+
         playIcon.style.display = 'block';
         pauseIcon.style.display = 'none';
+
+        playBtn.setAttribute(
+          'aria-label',
+          'Audio abspielen'
+        );
       }
     });
 
+
+    // Wenn das Audio zu Ende ist
     audio.addEventListener('ended', () => {
+
       playIcon.style.display = 'block';
       pauseIcon.style.display = 'none';
+
+      playBtn.setAttribute(
+        'aria-label',
+        'Audio abspielen'
+      );
+    });
+
+
+    // Falls das Audio einen Fehler hat
+    audio.addEventListener('error', () => {
+      console.error('Die Audiodatei konnte nicht geladen werden.');
     });
   </script>
+
 </body>
 </html>
