@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Major Rolf – 70 Jahre schwerelos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<img src="background.jpg" class="background" alt="" aria-hidden="true">
+
+<div class="stage">
+  <div id="crawl" class="crawl"></div>
+</div>
+
+<audio id="myAudio" src="audio.mp3" preload="auto"></audio>
+
+<button id="playBtn" class="play-button" type="button" aria-label="Song abspielen">
+  <svg id="playIcon" viewBox="0 0 24 24" aria-hidden="true">
+    <polygon points="5,3 19,12 5,21" fill="currentColor"/>
+  </svg>
+  <svg id="pauseIcon" viewBox="0 0 24 24" aria-hidden="true" style="display:none">
+    <rect x="5" y="4" width="4" height="16" fill="currentColor"/>
+    <rect x="15" y="4" width="4" height="16" fill="currentColor"/>
+  </svg>
+</button>
+
+<script>
+const audio = document.getElementById('myAudio');
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const pauseIcon = document.getElementById('pauseIcon');
+const crawl = document.getElementById('crawl');
+
+const sourceText = [["section", "1. STROPHE"], ["lyric", "Gründlich durchgecheckt steht er heut da,"], ["lyric", "siebzig Jahre – wunderbar!"], ["lyric", "Die Familie wartet alle sind bereit"], ["lyric", "denn heute feiern wir deine Zeit!"], ["lyric", "Die Gläser hoch, wir stoßen an,"], ["lyric", "weil man mit siebzig richtig feiern kann."], ["lyric", "Jeder weiß genau, was heute zählt:"], ["lyric", "Dass Major Rolf uns alle liebt!"], ["lyric", "Und Major Rolf macht einen Scherz,"], ["lyric", "dann hebt er ab und…"], ["section", "⚡ REFRAIN"], ["lyric", "Völlig losgelöst von der Erde"], ["lyric", "schwebt Major Rolf fast schwerelos."], ["lyric", "Siebzig Jahre mit Glück verbunden,"], ["lyric", "und die Party läuft schon seit Stunden."], ["lyric", "Die Chemie stimmt ganz genau,"], ["lyric", "denn Rolf, wir wissen auch:"], ["lyric", "Mit dir wird jeder Abend groß!"], ["section", "⚡ 2. STROPHE"], ["lyric", "Im Labor da war er in seinem Element,"], ["lyric", "wo er jede Formel und Reaktion kennt."], ["lyric", "Chemiker mit Herz und Verstand,"], ["lyric", "mit sicherer Hand und stets gespannt."], ["lyric", "Öle aller Konsistenz –"], ["lyric", "Rolf verbindet sie mit Exzellenz"], ["lyric", "und liefert Schmierstoff-Kompetenz!"], ["lyric", "Und Major Rolf macht einen Scherz,"], ["lyric", "dann hebt er ab und…"], ["section", "⚡ REFRAIN"], ["lyric", "Völlig losgelöst von der Erde"], ["lyric", "schwebt Major Rolf fast schwerelos."], ["lyric", "Siebzig Jahre mit Glück verbunden"], ["lyric", "und die Party läuft schon seit Stunden."], ["lyric", "Siebzig Jahre – welch ein Leben,"], ["lyric", "und noch ganz viel Gas zu geben!"], ["lyric", "Major Rolf, mit dir wird jeder Abend groß!"], ["section", "⚡ 3. STROPHE"], ["lyric", "Siebzig Jahre dauert nun schon deine Reise,"], ["lyric", "mal laut und lustig, mal ganz leise."], ["lyric", "Doch eines bleibt ganz sonnenklar:"], ["lyric", "Major Rolf ist immer für uns da!"], ["lyric", "Er hat keine Zeit, sich auszuruhn,"], ["lyric", "denn es gibt noch viel zu tun."], ["lyric", "Kinder und Enkel, alle sind da"], ["lyric", "und sagen gemeinsam: „Rolf, du bist wunderbar!“"], ["lyric", "Und Major Rolf macht einen Scherz,"], ["lyric", "dann hebt er ab und…"], ["section", "⚡ REFRAIN"], ["lyric", "Völlig losgelöst von der Erde"], ["lyric", "schwebt Major Rolf fast schwerelos."], ["lyric", "Siebzig Jahre mit Glück verbunden"], ["lyric", "und die Party läuft schon seit Stunden."], ["lyric", "Siebzig Jahre – welch ein Leben,"], ["lyric", "und noch ganz viel Gas zu geben!"], ["lyric", "Major Rolf, mit dir wird jeder Abend groß!"], ["section", "★ FINALE ★"], ["lyric", "Und wenn der Abend beginnt,"], ["lyric", "man auf der Wiese zusammenfindet,"], ["lyric", "dann knistert das Feuer, der Himmel wird weit,"], ["lyric", "und Rolf genießt diese gemütliche Zeit."], ["lyric", "Eine Luftmatratze, ein guter Wein,"], ["lyric", "Familie dabei, so soll es sein."], ["lyric", "Die Sterne funkeln, die Nacht wird still,"], ["lyric", "weil Rolf genau hier sein will."], ["lyric", "Und Major Rolf macht einen Scherz,"], ["lyric", "dann hebt er ab und…"], ["lyric", "Völlig losgelöst von der Erde"], ["lyric", "stoßen wir heute gemeinsam an!"], ["lyric", "Auf Gesundheit, Glück und frohe Stunden  – und Major Rolf fliegt weiter seine Runden!"]];
+
+sourceText.forEach(([type, text]) => {
+  const el = document.createElement(type === 'section' ? 'h2' : 'p');
+  el.className = type === 'section' ? 'crawl-section' : 'crawl-line';
+  el.textContent = text;
+  crawl.appendChild(el);
+});
+
+let hideTimer = null;
+
+function showPlayingUI() {
+  playIcon.style.display = 'none';
+  pauseIcon.style.display = 'block';
+  playBtn.setAttribute('aria-label', 'Song pausieren');
+  playBtn.classList.add('playing');
+  crawl.classList.add('running');
+}
+
+function showPausedUI() {
+  playIcon.style.display = 'block';
+  pauseIcon.style.display = 'none';
+  playBtn.setAttribute('aria-label', 'Song abspielen');
+  playBtn.classList.remove('playing');
+  crawl.classList.remove('running');
+  playBtn.classList.remove('hidden');
+}
+
+function hideButtonSoon() {
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(() => {
+    if (!audio.paused) playBtn.classList.add('hidden');
+  }, 1200);
+}
+
+playBtn.addEventListener('click', async (event) => {
+  event.stopPropagation();
+
+  if (audio.paused) {
+    try {
+      await audio.play();
+      showPlayingUI();
+      hideButtonSoon();
+    } catch (error) {
+      console.error('Audio konnte nicht abgespielt werden:', error);
+    }
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener('play', () => {
+  showPlayingUI();
+  hideButtonSoon();
+});
+
+audio.addEventListener('pause', () => {
+  showPausedUI();
+});
+
+audio.addEventListener('ended', () => {
+  showPausedUI();
+  playBtn.classList.remove('hidden');
+});
+
+/* Tippen außerhalb des Buttons: Steuerung kurz anzeigen. */
+document.addEventListener('pointerdown', (event) => {
+  if (event.target === playBtn) return;
+  playBtn.classList.remove('hidden');
+  if (!audio.paused) hideButtonSoon();
+});
+</script>
+</body>
+</html>
