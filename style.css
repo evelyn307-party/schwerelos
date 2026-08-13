@@ -1,0 +1,226 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  overflow: hidden;
+}
+
+/* =========================
+   HINTERGRUNDBILD
+   ========================= */
+.background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* Wieder auf 'contain', damit NIX abgeschnitten wird! */
+  object-fit: contain;
+  object-position: center;
+  
+  z-index: 0;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* =========================
+   STAR-WARS-LIEDTEXT
+   ========================= */
+.crawl-window {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  
+  /* Die echte 3D-Perspektive (je kleiner der Wert, desto krasser der Effekt) */
+  perspective: 400px;
+  -webkit-perspective: 400px;
+  
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  
+  /* Zentriert den Text in der Mitte */
+  display: flex;
+  justify-content: center;
+}
+
+.crawl-window.is-playing {
+  opacity: 1;
+}
+
+.crawl {
+  position: absolute;
+  /* Startet exakt an der unteren Bildschirmkante */
+  top: 100%; 
+  
+  /* Normale Breite, die sich dem Bildschirm anpasst */
+  width: 90%;
+  max-width: 800px;
+  
+  transform-origin: 50% 100%;
+  
+  color: #ffe66d;
+  font-family: Arial, Helvetica, sans-serif;
+  
+  /* Gut lesbare, normale Schriftgröße, die auf dem Handy nicht zu klein wird */
+  font-size: clamp(22px, 5vw, 45px);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.025em;
+  text-align: center;
+  
+  text-shadow:
+    0 0 2px #fff3a0,
+    0 0 7px rgba(255, 214, 70, 0.75),
+    0 0 16px rgba(255, 190, 30, 0.45);
+    
+  will-change: transform;
+}
+
+.crawl-content {
+  padding-bottom: 30vh;
+}
+
+.crawl-content p {
+  margin-bottom: 2em;
+}
+
+.crawl-content .crawl-heading {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  font-size: 1.2em;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  color: #fff; /* Hebt die Überschriften weiß hervor */
+}
+
+.crawl-content .refrain {
+  font-weight: 900;
+}
+
+.crawl-content .finale {
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+/* 
+ * Animation: Von unten nach hinten oben in den Sternenhimmel 
+ */
+@keyframes crawl {
+  0% {
+    /* 30 Grad geneigt, Start bei Y=0 (bottom) */
+    transform: rotateX(30deg) translateY(0);
+  }
+  100% {
+    /* Fährt weit nach oben/hinten (bis es verschwindet) */
+    transform: rotateX(30deg) translateY(-400vh);
+  }
+}
+
+/* =========================
+   PLAY BUTTON
+   ========================= */
+.play-button {
+  position: relative;
+  z-index: 10;
+  width: clamp(75px, 15vw, 120px);
+  height: clamp(75px, 15vw, 120px);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease, opacity 0.5s ease;
+}
+
+.play-button.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .play-button:hover {
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.play-button:active {
+  transform: scale(0.95);
+}
+
+.play-button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 6px;
+}
+
+.play-button svg {
+  width: clamp(32px, 6vw, 52px);
+  height: clamp(32px, 6vw, 52px);
+}
+
+#playIcon {
+  margin-left: 4px;
+}
+
+/* =========================
+   SMARTPHONE (Mobile Ansicht)
+   ========================= */
+@media (max-width: 480px) {
+  .play-button {
+    width: 80px;
+    height: 80px;
+    border-width: 2px;
+  }
+  .play-button svg {
+    width: 36px;
+    height: 36px;
+  }
+  .crawl {
+    width: 95%; /* Fast die volle Breite auf dem Handy */
+    font-size: 20px; /* Perfekte Lesegröße für Smartphones */
+  }
+  @keyframes crawl {
+    0% {
+      transform: rotateX(30deg) translateY(0);
+    }
+    100% {
+      transform: rotateX(30deg) translateY(-350vh);
+    }
+  }
+}
+
+/* =========================
+   SEHR GROSSE BILDSCHIRME
+   ========================= */
+@media (min-width: 1600px) {
+  .play-button {
+    width: 120px;
+    height: 120px;
+  }
+}
