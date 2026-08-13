@@ -1,0 +1,73 @@
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%}
+body{position:relative;overflow:hidden;background:#000;color:#fff;font-family:Arial,Helvetica,sans-serif}
+
+.background{
+ position:fixed;inset:0;width:100%;height:100%;
+ object-fit:contain;object-position:center;
+ z-index:0;pointer-events:none;
+}
+
+/* Ganz bewusst KEIN 3D-Transform in dieser Testversion.
+   So ist garantiert, dass der Text sichtbar ist. */
+.lyrics-window{
+ position:fixed;inset:0;overflow:hidden;z-index:5;
+}
+
+.lyrics{
+ position:absolute;
+ left:50%;
+ top:24vh;
+ width:min(92vw,980px);
+ transform:translateX(-50%);
+ text-align:center;
+ opacity:1;
+}
+
+.lyrics h2{
+ margin:34px 0 20px;
+ font-size:clamp(24px,5vw,38px);
+ line-height:1.25;
+ color:#fff;
+ text-shadow:0 2px 3px #000,0 0 8px #000,0 0 16px #000;
+}
+
+.lyrics p{
+ margin:0 0 17px;
+ font-size:clamp(25px,6vw,43px);
+ line-height:1.28;
+ font-weight:700;
+ color:#fff;
+ text-shadow:0 2px 3px #000,0 0 8px #000,0 0 16px #000,0 0 25px #000;
+}
+
+.lyrics.go{
+ animation:scrollStarWars 285s linear forwards;
+}
+
+@keyframes scrollStarWars{
+ 0%{
+   transform:translateX(-50%) translateY(0) scale(1);
+ }
+ 100%{
+   transform:translateX(-50%) translateY(-210vh) scale(.45);
+ }
+}
+
+.play{
+ position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
+ z-index:20;width:82px;height:82px;border-radius:50%;
+ border:2px solid #fff;background:rgba(0,0,0,.72);color:#fff;
+ font-size:32px;cursor:pointer;
+ box-shadow:0 8px 30px rgba(0,0,0,.6);
+ transition:opacity .3s ease,transform .2s ease;
+}
+.play:hover{transform:translate(-50%,-50%) scale(1.08)}
+.play:active{transform:translate(-50%,-50%) scale(.95)}
+.play.hide{opacity:0;pointer-events:none}
+
+@media(max-width:600px){
+ .lyrics{top:25vh;width:94vw}
+ .lyrics h2{font-size:24px;margin:30px 0 18px}
+ .lyrics p{font-size:25px;margin-bottom:15px}
+}

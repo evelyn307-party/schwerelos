@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Major Rolf</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<img class="background" src="background.jpg" alt="">
+
+<div class="lyrics-window">
+  <div id="lyrics" class="lyrics">
+<h2>1. STROPHE</h2>
+<p>Gründlich durchgecheckt steht er heut da,</p>
+<p>siebzig Jahre – wunderbar!</p>
+<p>Die Familie wartet alle sind bereit</p>
+<p>denn heute feiern wir deine Zeit!</p>
+<p>Die Gläser hoch, wir stoßen an,</p>
+<p>weil man mit siebzig richtig feiern kann.</p>
+<p>Jeder weiß genau, was heute zählt:</p>
+<p>Dass Major Rolf uns alle liebt!</p>
+<p>Und Major Rolf macht einen Scherz,</p>
+<p>dann hebt er ab und…</p>
+<h2>⚡ REFRAIN</h2>
+<p>Völlig losgelöst von der Erde</p>
+<p>schwebt Major Rolf fast schwerelos.</p>
+<p>Siebzig Jahre mit Glück verbunden,</p>
+<p>und die Party läuft schon seit Stunden.</p>
+<p>Die Chemie stimmt ganz genau,</p>
+<p>denn Rolf, wir wissen auch:</p>
+<p>Mit dir wird jeder Abend groß!</p>
+<h2>⚡ 2. STROPHE</h2>
+<p>Im Labor da war er in seinem Element,</p>
+<p>wo er jede Formel und Reaktion kennt.</p>
+<p>Chemiker mit Herz und Verstand,</p>
+<p>mit sicherer Hand und stets gespannt.</p>
+<p>Öle aller Konsistenz –</p>
+<p>Rolf verbindet sie mit Exzellenz</p>
+<p>und liefert Schmierstoff-Kompetenz!</p>
+<p>Und Major Rolf macht einen Scherz,</p>
+<p>dann hebt er ab und…</p>
+<h2>⚡ REFRAIN</h2>
+<p>Völlig losgelöst von der Erde</p>
+<p>schwebt Major Rolf fast schwerelos.</p>
+<p>Siebzig Jahre mit Glück verbunden</p>
+<p>und die Party läuft schon seit Stunden.</p>
+<p>Siebzig Jahre – welch ein Leben,</p>
+<p>und noch ganz viel Gas zu geben!</p>
+<p>Major Rolf, mit dir wird jeder Abend groß!</p>
+<h2>⚡ 3. STROPHE</h2>
+<p>Siebzig Jahre dauert nun schon deine Reise,</p>
+<p>mal laut und lustig, mal ganz leise.</p>
+<p>Doch eines bleibt ganz sonnenklar:</p>
+<p>Major Rolf ist immer für uns da!</p>
+<p>Er hat keine Zeit, sich auszuruhn,</p>
+<p>denn es gibt noch viel zu tun.</p>
+<p>Kinder und Enkel, alle sind da</p>
+<p>und sagen gemeinsam: „Rolf, du bist wunderbar!“</p>
+<p>Und Major Rolf macht einen Scherz,</p>
+<p>dann hebt er ab und…</p>
+<h2>⚡ REFRAIN</h2>
+<p>Völlig losgelöst von der Erde</p>
+<p>schwebt Major Rolf fast schwerelos.</p>
+<p>Siebzig Jahre mit Glück verbunden</p>
+<p>und die Party läuft schon seit Stunden.</p>
+<p>Siebzig Jahre – welch ein Leben,</p>
+<p>und noch ganz viel Gas zu geben!</p>
+<p>Major Rolf, mit dir wird jeder Abend groß!</p>
+<h2>★ FINALE ★</h2>
+<p>Und wenn der Abend beginnt,</p>
+<p>man auf der Wiese zusammenfindet,</p>
+<p>dann knistert das Feuer, der Himmel wird weit,</p>
+<p>und Rolf genießt diese gemütliche Zeit.</p>
+<p>Eine Luftmatratze, ein guter Wein,</p>
+<p>Familie dabei, so soll es sein.</p>
+<p>Die Sterne funkeln, die Nacht wird still,</p>
+<p>weil Rolf genau hier sein will.</p>
+<p>Und Major Rolf macht einen Scherz,</p>
+<p>dann hebt er ab und…</p>
+<p>Völlig losgelöst von der Erde</p>
+<p>stoßen wir heute gemeinsam an!</p>
+<p>Auf Gesundheit, Glück und frohe Stunden  – und Major Rolf fliegt weiter seine Runden!</p>
+  </div>
+</div>
+
+<audio id="audio" src="audio.mp3" preload="auto"></audio>
+
+<button id="play" class="play" aria-label="Song abspielen">
+  <span id="playSymbol">▶</span>
+  <span id="pauseSymbol" hidden>Ⅱ</span>
+</button>
+
+<script>
+const audio = document.getElementById('audio');
+const lyrics = document.getElementById('lyrics');
+const play = document.getElementById('play');
+const playSymbol = document.getElementById('playSymbol');
+const pauseSymbol = document.getElementById('pauseSymbol');
+
+play.addEventListener('click', async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener('play', () => {
+  lyrics.classList.add('go');
+  playSymbol.hidden = true;
+  pauseSymbol.hidden = false;
+  setTimeout(() => {
+    if (!audio.paused) play.classList.add('hide');
+  }, 700);
+});
+
+audio.addEventListener('pause', () => {
+  lyrics.classList.remove('go');
+  play.classList.remove('hide');
+  playSymbol.hidden = false;
+  pauseSymbol.hidden = true;
+});
+
+audio.addEventListener('ended', () => {
+  play.classList.remove('hide');
+  playSymbol.hidden = false;
+  pauseSymbol.hidden = true;
+});
+
+document.addEventListener('pointerdown', (e) => {
+  if (e.target === play || audio.paused) return;
+  play.classList.remove('hide');
+  clearTimeout(window.t);
+  window.t = setTimeout(() => {
+    if (!audio.paused) play.classList.add('hide');
+  }, 1000);
+});
+</script>
+</body>
+</html>
