@@ -1,0 +1,104 @@
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+body{
+  position:relative;
+  background:#000;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+.background{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  z-index:0;
+  pointer-events:none;
+}
+
+.lyrics{
+  position:fixed !important;
+  left:50% !important;
+  top:24vh !important;
+  transform:translateX(-50%) !important;
+
+  width:94vw !important;
+  max-width:1000px !important;
+  height:68vh !important;
+
+  overflow:hidden !important;
+  z-index:999 !important;
+
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+
+  text-align:center !important;
+  color:#fff !important;
+
+  background:rgba(0,0,0,.12);
+}
+
+.line{
+  display:block;
+  margin:0 0 12px;
+
+  font-size:clamp(25px,6vw,44px);
+  line-height:1.25;
+  font-weight:700;
+
+  color:#fff !important;
+  opacity:1 !important;
+  visibility:visible !important;
+
+  text-shadow:
+    0 2px 3px #000,
+    0 0 8px #000,
+    0 0 18px #000,
+    0 0 28px #000;
+}
+
+.heading{
+  margin-top:28px;
+  margin-bottom:18px;
+  font-size:clamp(26px,6.5vw,40px);
+  letter-spacing:.04em;
+}
+
+/* Button is deliberately simple in this diagnostic build. */
+#play{
+  position:fixed;
+  left:50%;
+  bottom:30px;
+  transform:translateX(-50%);
+
+  z-index:1000;
+
+  width:78px;
+  height:78px;
+  border-radius:50%;
+  border:2px solid #fff;
+
+  background:rgba(0,0,0,.8);
+  color:#fff;
+  font-size:30px;
+}
+
+@media(max-width:600px){
+  .lyrics{
+    top:22vh !important;
+    width:94vw !important;
+    height:70vh !important;
+  }
+
+  .line{
+    font-size:clamp(23px,6.2vw,33px);
+    margin-bottom:10px;
+  }
+}

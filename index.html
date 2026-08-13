@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Major Rolf – Sichtbarkeitstest</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<img src="background.jpg" class="background" alt="">
+
+<div class="lyrics">
+<div class="line heading">1. STROPHE</div>
+<div class="line ">Gründlich durchgecheckt steht er heut da,</div>
+<div class="line ">siebzig Jahre – wunderbar!</div>
+<div class="line ">Die Familie wartet alle sind bereit</div>
+<div class="line ">denn heute feiern wir deine Zeit!</div>
+<div class="line ">Die Gläser hoch, wir stoßen an,</div>
+<div class="line ">weil man mit siebzig richtig feiern kann.</div>
+<div class="line ">Jeder weiß genau, was heute zählt:</div>
+<div class="line ">Dass Major Rolf uns alle liebt!</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line heading">⚡ REFRAIN</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">schwebt Major Rolf fast schwerelos.</div>
+<div class="line ">Siebzig Jahre mit Glück verbunden,</div>
+<div class="line ">und die Party läuft schon seit Stunden.</div>
+<div class="line ">Die Chemie stimmt ganz genau,</div>
+<div class="line ">denn Rolf, wir wissen auch:</div>
+<div class="line ">Mit dir wird jeder Abend groß!</div>
+<div class="line heading">⚡ 2. STROPHE</div>
+<div class="line ">Im Labor da war er in seinem Element,</div>
+<div class="line ">wo er jede Formel und Reaktion kennt.</div>
+<div class="line ">Chemiker mit Herz und Verstand,</div>
+<div class="line ">mit sicherer Hand und stets gespannt.</div>
+<div class="line ">Öle aller Konsistenz –</div>
+<div class="line ">Rolf verbindet sie mit Exzellenz</div>
+<div class="line ">und liefert Schmierstoff-Kompetenz!</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line heading">⚡ REFRAIN</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">schwebt Major Rolf fast schwerelos.</div>
+<div class="line ">Siebzig Jahre mit Glück verbunden</div>
+<div class="line ">und die Party läuft schon seit Stunden.</div>
+<div class="line ">Siebzig Jahre – welch ein Leben,</div>
+<div class="line ">und noch ganz viel Gas zu geben!</div>
+<div class="line ">Major Rolf, mit dir wird jeder Abend groß!</div>
+<div class="line heading">⚡ 3. STROPHE</div>
+<div class="line ">Siebzig Jahre dauert nun schon deine Reise,</div>
+<div class="line ">mal laut und lustig, mal ganz leise.</div>
+<div class="line ">Doch eines bleibt ganz sonnenklar:</div>
+<div class="line ">Major Rolf ist immer für uns da!</div>
+<div class="line ">Er hat keine Zeit, sich auszuruhn,</div>
+<div class="line ">denn es gibt noch viel zu tun.</div>
+<div class="line ">Kinder und Enkel, alle sind da</div>
+<div class="line ">und sagen gemeinsam: „Rolf, du bist wunderbar!“</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line heading">⚡ REFRAIN</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">schwebt Major Rolf fast schwerelos.</div>
+<div class="line ">Siebzig Jahre mit Glück verbunden</div>
+<div class="line ">und die Party läuft schon seit Stunden.</div>
+<div class="line ">Siebzig Jahre – welch ein Leben,</div>
+<div class="line ">und noch ganz viel Gas zu geben!</div>
+<div class="line ">Major Rolf, mit dir wird jeder Abend groß!</div>
+<div class="line heading">★ FINALE ★</div>
+<div class="line ">Und wenn der Abend beginnt,</div>
+<div class="line ">man auf der Wiese zusammenfindet,</div>
+<div class="line ">dann knistert das Feuer, der Himmel wird weit,</div>
+<div class="line ">und Rolf genießt diese gemütliche Zeit.</div>
+<div class="line ">Eine Luftmatratze, ein guter Wein,</div>
+<div class="line ">Familie dabei, so soll es sein.</div>
+<div class="line ">Die Sterne funkeln, die Nacht wird still,</div>
+<div class="line ">weil Rolf genau hier sein will.</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">stoßen wir heute gemeinsam an!</div>
+<div class="line ">Auf Gesundheit, Glück und frohe Stunden  – und Major Rolf fliegt weiter seine Runden!</div>
+</div>
+
+<audio id="audio" src="audio.mp3" preload="auto"></audio>
+
+<button id="play" type="button" aria-label="Song abspielen">▶</button>
+
+<script>
+const audio = document.getElementById('audio');
+const play = document.getElementById('play');
+
+play.addEventListener('click', async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+      play.textContent = 'Ⅱ';
+    } catch (e) {
+      console.error(e);
+    }
+  } else {
+    audio.pause();
+    play.textContent = '▶';
+  }
+});
+</script>
+
+</body>
+</html>
