@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>Major Rolf – 70 Jahre schwerelos</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Hintergrundbild -->
+  <img
+    src="background.jpg"
+    class="background"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <!-- Liedtext im Star-Wars-Stil -->
+  <div
+    class="crawl-window"
+    id="crawlWindow"
+    aria-label="Liedtext"
+  >
+    <div class="crawl" id="crawl">
+      <div class="crawl-content">
+
+        <p class="crawl-heading">★ 1. STROPHE ★</p>
+
+        <p>
+          Gründlich durchgecheckt steht er heut da,<br>
+          siebzig Jahre – wunderbar!<br>
+          Die Familie wartet, alle sind bereit,<br>
+          denn heute feiern wir deine Zeit!<br>
+          Die Gläser hoch, wir stoßen an,<br>
+          weil man mit siebzig richtig feiern kann.<br>
+          Jeder weiß genau, was heute zählt:<br>
+          Dass Major Rolf uns alle liebt!<br>
+          Und Major Rolf macht einen Scherz,<br>
+          dann hebt er ab und…
+        </p>
+
+        <p class="crawl-heading">★ REFRAIN ★</p>
+
+        <p class="refrain">
+          Völlig losgelöst von der Erde<br>
+          schwebt Major Rolf fast schwerelos.<br>
+          Siebzig Jahre mit Glück verbunden,<br>
+          und die Party läuft schon seit Stunden.<br>
+          Die Chemie stimmt ganz genau,<br>
+          denn Rolf, wir wissen auch:<br>
+          Mit dir wird jeder Abend groß!
+        </p>
+
+        <p class="crawl-heading">★ 2. STROPHE ★</p>
+
+        <p>
+          Im Labor da war er in seinem Element,<br>
+          wo er jede Formel und Reaktion kennt.<br>
+          Chemiker mit Herz und Verstand,<br>
+          mit sicherer Hand und stets gespannt.<br>
+          Öle aller Konsistenz –<br>
+          Rolf verbindet sie mit Exzellenz<br>
+          und liefert Schmierstoff-Kompetenz!<br>
+          Und Major Rolf macht einen Scherz,<br>
+          dann hebt er ab und…
+        </p>
+
+        <p class="crawl-heading">★ REFRAIN ★</p>
+
+        <p class="refrain">
+          Völlig losgelöst von der Erde<br>
+          schwebt Major Rolf fast schwerelos.<br>
+          Siebzig Jahre mit Glück verbunden,<br>
+          und die Party läuft schon seit Stunden.<br>
+          Siebzig Jahre – welch ein Leben,<br>
+          und noch ganz viel Gas zu geben!<br>
+          Major Rolf, mit dir wird jeder Abend groß!
+        </p>
+
+        <p class="crawl-heading">★ 3. STROPHE ★</p>
+
+        <p>
+          Siebzig Jahre dauert nun schon deine Reise,<br>
+          mal laut und lustig, mal ganz leise.<br>
+          Doch eines bleibt ganz sonnenklar:<br>
+          Major Rolf ist immer für uns da!<br>
+          Er hat keine Zeit, sich auszuruhn,<br>
+          denn es gibt noch viel zu tun.<br>
+          Kinder und Enkel, alle sind da<br>
+          und sagen gemeinsam: „Rolf, du bist wunderbar!“<br>
+          Und Major Rolf macht einen Scherz,<br>
+          dann hebt er ab und…
+        </p>
+
+        <p class="crawl-heading">★ REFRAIN ★</p>
+
+        <p class="refrain">
+          Völlig losgelöst von der Erde<br>
+          schwebt Major Rolf fast schwerelos.<br>
+          Siebzig Jahre mit Glück verbunden<br>
+          und die Party läuft schon seit Stunden.<br>
+          Siebzig Jahre – welch ein Leben,<br>
+          und noch ganz viel Gas zu geben!<br>
+          Major Rolf, mit dir wird jeder Abend groß!
+        </p>
+
+        <p class="crawl-heading">★ FINALE ★</p>
+
+        <p>
+          Und wenn der Abend beginnt,<br>
+          man auf der Wiese zusammenfindet,<br>
+          dann knistert das Feuer, der Himmel wird weit,<br>
+          und Rolf genießt diese gemütliche Zeit.<br>
+          Eine Luftmatratze, ein guter Wein,<br>
+          Familie dabei, so soll es sein.<br>
+          Die Sterne funkeln, die Nacht wird still,<br>
+          weil Rolf genau hier sein will.<br>
+          Und Major Rolf macht einen Scherz,<br>
+          dann hebt er ab und…
+        </p>
+
+        <p class="refrain finale">
+          Völlig losgelöst von der Erde<br>
+          stoßen wir heute gemeinsam an!<br>
+          Auf Gesundheit, Glück und frohe Stunden –<br>
+          und Major Rolf fliegt weiter seine Runden!
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Audio-Element -->
+  <audio
+    id="myAudio"
+    src="audio.mp3"
+    preload="auto"
+  ></audio>
+
+  <!-- Play / Pause Button -->
+  <button
+    id="playBtn"
+    class="play-button"
+    type="button"
+    aria-label="Audio abspielen"
+  >
+
+    <!-- Play Icon -->
+    <svg
+      id="playIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <polygon
+        points="5,3 19,12 5,21"
+        fill="currentColor"
+      />
+    </svg>
+
+    <!-- Pause Icon -->
+    <svg
+      id="pauseIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      style="display: none;"
+    >
+      <rect
+        x="5"
+        y="4"
+        width="4"
+        height="16"
+        fill="currentColor"
+      />
+
+      <rect
+        x="15"
+        y="4"
+        width="4"
+        height="16"
+        fill="currentColor"
+      />
+    </svg>
+
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('myAudio');
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const crawl = document.getElementById('crawl');
+    const crawlWindow = document.getElementById('crawlWindow');
+
+    /*
+     * Der Text läuft exakt so lange wie das Lied.
+     * Beim Pausieren bleibt er stehen.
+     * Beim Fortsetzen läuft er an derselben Stelle weiter.
+     */
+
+    function setCrawlPosition() {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) {
+        return;
+      }
+
+      crawl.style.animation = 'none';
+      crawl.style.animationDuration = `${audio.duration}s`;
+      crawl.style.animationDelay = `-${audio.currentTime}s`;
+      crawl.style.animationPlayState = audio.paused ? 'paused' : 'running';
+
+      // Browser zum Neuberechnen der Animation zwingen
+      void crawl.offsetWidth;
+
+      crawl.style.animation = `crawl ${audio.duration}s linear forwards`;
+      crawl.style.animationDelay = `-${audio.currentTime}s`;
+      crawl.style.animationPlayState = audio.paused ? 'paused' : 'running';
+    }
+
+    function updatePlayButton() {
+      if (audio.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        playBtn.setAttribute('aria-label', 'Audio abspielen');
+        crawlWindow.classList.remove('is-playing');
+        playBtn.classList.remove('hidden'); // Button wieder zeigen, wenn pausiert ist
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        playBtn.setAttribute('aria-label', 'Audio pausieren');
+        crawlWindow.classList.add('is-playing');
+        playBtn.classList.add('hidden'); // Button ausblenden, wenn abgespielt wird
+      }
+    }
+
+    // Audio starten / pausieren
+    playBtn.addEventListener('click', async () => {
+
+      if (audio.paused) {
+
+        try {
+          await audio.play();
+          setCrawlPosition();
+          updatePlayButton();
+
+        } catch (error) {
+          console.error('Audio konnte nicht abgespielt werden:', error);
+        }
+
+      } else {
+
+        audio.pause();
+        updatePlayButton();
+      }
+    });
+
+    // Wiedereinblenden des Buttons beim Tippen
+    document.body.addEventListener('click', () => {
+      if (playBtn.classList.contains('hidden')) {
+        playBtn.classList.remove('hidden');
+      }
+    });
+
+    // Sobald die Länge des Liedes bekannt ist
+    audio.addEventListener('loadedmetadata', () => {
+      setCrawlPosition();
+    });
+
+    // Beim Springen im Lied den Text ebenfalls an die richtige Stelle setzen
+    audio.addEventListener('seeked', () => {
+      setCrawlPosition();
+    });
+
+    // Wenn das Audio zu Ende ist
+    audio.addEventListener('ended', () => {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      playBtn.setAttribute('aria-label', 'Audio abspielen');
+      crawlWindow.classList.remove('is-playing');
+      playBtn.classList.remove('hidden'); // Button am Ende wieder zeigen
+
+      // Text wieder an den Anfang setzen
+      audio.currentTime = 0;
+      setCrawlPosition();
+    });
+
+    // Falls das Audio einen Fehler hat
+    audio.addEventListener('error', () => {
+      console.error('Die Audiodatei konnte nicht geladen werden.');
+    });
+  </script>
+
+</body>
+</html>
