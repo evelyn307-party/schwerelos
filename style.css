@@ -1,0 +1,325 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+
+  min-height: 100dvh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #000;
+
+  overflow: hidden;
+}
+
+
+/* =========================
+   HINTERGRUNDBILD
+   ========================= */
+
+.background {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  /*
+   * Das komplette Bild bleibt sichtbar.
+   */
+  object-fit: contain;
+  object-position: center;
+
+  z-index: 0;
+
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+
+/* =========================
+   STAR-WARS-LIEDTEXT
+   ========================= */
+
+.crawl-window {
+  position: absolute;
+  inset: 0;
+
+  z-index: 2;
+
+  overflow: hidden;
+
+  /*
+   * Die Perspektive erzeugt den typischen
+   * "nach hinten in den Sternenhimmel"-Effekt.
+   */
+  perspective: 380px;
+  -webkit-perspective: 380px;
+
+  pointer-events: none;
+
+  opacity: 0;
+
+  transition: opacity 0.8s ease;
+}
+
+.crawl-window.is-playing {
+  opacity: 1;
+}
+
+.crawl {
+  position: absolute;
+
+  top: 68vh;
+  left: 50%;
+
+  width: min(94vw, 1100px);
+
+  transform-origin: 50% 100%;
+
+  /*
+   * Der Text steht schräg im Raum.
+   */
+  transform: translateX(-50%) rotateX(68deg);
+
+  /*
+   * Die Animation wird per JavaScript auf die
+   * tatsächliche Länge des Liedes eingestellt.
+   */
+  animation: crawl 280s linear forwards;
+  animation-play-state: paused;
+
+  color: #ffe66d;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  font-size: clamp(20px, 2.1vw, 32px);
+  font-weight: 700;
+
+  line-height: 1.42;
+  letter-spacing: 0.025em;
+
+  text-align: center;
+
+  text-shadow:
+    0 0 2px #fff3a0,
+    0 0 7px rgba(255, 214, 70, 0.75),
+    0 0 16px rgba(255, 190, 30, 0.45);
+
+  will-change: transform;
+}
+
+.crawl-content {
+  padding-bottom: 30vh;
+}
+
+.crawl-content p {
+  margin-bottom: 2.2em;
+}
+
+.crawl-content .crawl-heading {
+  margin-top: 0.5em;
+  margin-bottom: 1.1em;
+
+  font-size: 1.05em;
+  font-weight: 800;
+
+  letter-spacing: 0.08em;
+}
+
+.crawl-content .refrain {
+  font-weight: 800;
+}
+
+.crawl-content .finale {
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+
+/*
+ * Der Text startet unten und verschwindet oben
+ * im Sternenhimmel.
+ */
+@keyframes crawl {
+  from {
+    transform:
+      translateX(-50%)
+      translateY(0)
+      rotateX(68deg);
+  }
+
+  to {
+    transform:
+      translateX(-50%)
+      translateY(-205vh)
+      rotateX(68deg);
+  }
+}
+
+
+/* =========================
+   PLAY BUTTON
+   ========================= */
+
+.play-button {
+  position: relative;
+
+  z-index: 10;
+
+  width: clamp(75px, 15vw, 120px);
+  height: clamp(75px, 15vw, 120px);
+
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #fff;
+
+  background: rgba(0, 0, 0, 0.6);
+
+  border: 3px solid #fff;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.4);
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* Hover nur für Geräte mit Maus */
+@media (hover: hover) and (pointer: fine) {
+
+  .play-button:hover {
+    transform: scale(1.1);
+
+    background: rgba(0, 0, 0, 0.8);
+
+    box-shadow:
+      0 14px 35px rgba(0, 0, 0, 0.5);
+  }
+
+}
+
+
+/* Beim Drücken */
+.play-button:active {
+  transform: scale(0.95);
+}
+
+
+/* Tastatur-Fokus */
+.play-button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 6px;
+}
+
+
+/* =========================
+   ICONS
+   ========================= */
+
+.play-button svg {
+  width: clamp(32px, 6vw, 52px);
+  height: clamp(32px, 6vw, 52px);
+}
+
+
+/* Play-Dreieck optisch zentrieren */
+#playIcon {
+  margin-left: 4px;
+}
+
+
+/* =========================
+   SMARTPHONE
+   ========================= */
+
+@media (max-width: 480px) {
+
+  .play-button {
+    width: 80px;
+    height: 80px;
+
+    border-width: 2px;
+  }
+
+  .play-button svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .crawl {
+    top: 66vh;
+
+    width: 98vw;
+
+    font-size: 23px;
+    line-height: 1.38;
+
+    /*
+     * Auf kleinen Bildschirmen etwas stärkere
+     * Perspektive für den Star-Wars-Effekt.
+     */
+    transform: translateX(-50%) rotateX(68deg);
+  }
+
+  @keyframes crawl {
+    from {
+      transform:
+        translateX(-50%)
+        translateY(0)
+        rotateX(68deg);
+    }
+
+    to {
+      transform:
+        translateX(-50%)
+        translateY(-205vh)
+        rotateX(68deg);
+    }
+  }
+
+}
+
+
+/* =========================
+   SEHR GROSSE BILDSCHIRME
+   ========================= */
+
+@media (min-width: 1600px) {
+
+  .play-button {
+    width: 120px;
+    height: 120px;
+  }
+
+}
