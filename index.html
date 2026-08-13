@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>Major Rolf – 70 Jahre schwerelos</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Hintergrundbild -->
+  <img
+    src="background.jpg"
+    class="background"
+    alt=""
+    aria-hidden="true"
+  >
+
+  <!-- Das Fenster für den Karaoke-Text -->
+  <div
+    id="karaokeFenster"
+    aria-label="Liedtext"
+  >
+    <!-- Diese Box bewegt sich später nach oben -->
+    <div id="karaokeScrollBox"></div>
+  </div>
+
+  <!-- Audio-Element -->
+  <audio
+    id="myAudio"
+    src="audio.mp3"
+    preload="auto"
+  ></audio>
+
+  <!-- Play / Pause Button -->
+  <button
+    id="playBtn"
+    class="play-button"
+    type="button"
+    aria-label="Audio abspielen"
+  >
+
+    <!-- Play Icon -->
+    <svg
+      id="playIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <polygon
+        points="5,3 19,12 5,21"
+        fill="currentColor"
+      />
+    </svg>
+
+    <!-- Pause Icon -->
+    <svg
+      id="pauseIcon"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      style="display: none;"
+    >
+      <rect
+        x="5"
+        y="4"
+        width="4"
+        height="16"
+        fill="currentColor"
+      />
+
+      <rect
+        x="15"
+        y="4"
+        width="4"
+        height="16"
+        fill="currentColor"
+      />
+    </svg>
+
+  </button>
+
+
+  <script>
+    const audio = document.getElementById('myAudio');
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const pauseIcon = document.getElementById('pauseIcon');
+    const karaokeFenster = document.getElementById('karaokeFenster');
+    const scrollBox = document.getElementById('karaokeScrollBox');
+
+    // 1. Dein kompletter Songtext
+    // BITTE HIER DIE ZEITEN (in Sekunden) ANPASSEN!
+    const songtext = [
+      { time: 0, text: "★ 1. STROPHE ★" },
+      { time: 3, text: "Gründlich durchgecheckt steht er heut da," },
+      { time: 6, text: "siebzig Jahre – wunderbar!" },
+      { time: 9, text: "Die Familie wartet, alle sind bereit," },
+      { time: 12, text: "denn heute feiern wir deine Zeit!" },
+      { time: 15, text: "Die Gläser hoch, wir stoßen an," },
+      { time: 18, text: "weil man mit siebzig richtig feiern kann." },
+      { time: 21, text: "Jeder weiß genau, was heute zählt:" },
+      { time: 24, text: "Dass Major Rolf uns alle liebt!" },
+      { time: 27, text: "Und Major Rolf macht einen Scherz," },
+      { time: 30, text: "dann hebt er ab und…" },
+      { time: 33, text: "★ REFRAIN ★" },
+      { time: 36, text: "Völlig losgelöst von der Erde" },
+      { time: 39, text: "schwebt Major Rolf fast schwerelos." },
+      { time: 42, text: "Siebzig Jahre mit Glück verbunden," },
+      { time: 45, text: "und die Party läuft schon seit Stunden." },
+      { time: 48, text: "Die Chemie stimmt ganz genau," },
+      { time: 51, text: "denn Rolf, wir wissen auch:" },
+      { time: 54, text: "Mit dir wird jeder Abend groß!" },
+      { time: 57, text: "★ 2. STROPHE ★" },
+      { time: 60, text: "Im Labor da war er in seinem Element," },
+      { time: 63, text: "wo er jede Formel und Reaktion kennt." },
+      { time: 66, text: "Chemiker mit Herz und Verstand," },
+      { time: 69, text: "mit sicherer Hand und stets gespannt." },
+      { time: 72, text: "Öle aller Konsistenz –" },
+      { time: 75, text: "Rolf verbindet sie mit Exzellenz" },
+      { time: 78, text: "und liefert Schmierstoff-Kompetenz!" },
+      { time: 81, text: "Und Major Rolf macht einen Scherz," },
+      { time: 84, text: "dann hebt er ab und…" },
+      { time: 87, text: "★ REFRAIN ★" },
+      { time: 90, text: "Völlig losgelöst von der Erde" },
+      { time: 93, text: "schwebt Major Rolf fast schwerelos." },
+      { time: 96, text: "Siebzig Jahre mit Glück verbunden," },
+      { time: 99, text: "und die Party läuft schon seit Stunden." },
+      { time: 102, text: "Siebzig Jahre – welch ein Leben," },
+      { time: 105, text: "und noch ganz viel Gas zu geben!" },
+      { time: 108, text: "Major Rolf, mit dir wird jeder Abend groß!" },
+      { time: 111, text: "★ 3. STROPHE ★" },
+      { time: 114, text: "Siebzig Jahre dauert nun schon deine Reise," },
+      { time: 117, text: "mal laut und lustig, mal ganz leise." },
+      { time: 120, text: "Doch eines bleibt ganz sonnenklar:" },
+      { time: 123, text: "Major Rolf ist immer für uns da!" },
+      { time: 126, text: "Er hat keine Zeit, sich auszuruhn," },
+      { time: 129, text: "denn es gibt noch viel zu tun." },
+      { time: 132, text: "Kinder und Enkel, alle sind da" },
+      { time: 135, text: "und sagen gemeinsam: „Rolf, du bist wunderbar!“" },
+      { time: 138, text: "Und Major Rolf macht einen Scherz," },
+      { time: 141, text: "dann hebt er ab und…" },
+      { time: 144, text: "★ REFRAIN ★" },
+      { time: 147, text: "Völlig losgelöst von der Erde" },
+      { time: 150, text: "schwebt Major Rolf fast schwerelos." },
+      { time: 153, text: "Siebzig Jahre mit Glück verbunden" },
+      { time: 156, text: "und die Party läuft schon seit Stunden." },
+      { time: 159, text: "Siebzig Jahre – welch ein Leben," },
+      { time: 162, text: "und noch ganz viel Gas zu geben!" },
+      { time: 165, text: "Major Rolf, mit dir wird jeder Abend groß!" },
+      { time: 168, text: "★ FINALE ★" },
+      { time: 171, text: "Und wenn der Abend beginnt," },
+      { time: 174, text: "man auf der Wiese zusammenfindet," },
+      { time: 177, text: "dann knistert das Feuer, der Himmel wird weit," },
+      { time: 180, text: "und Rolf genießt diese gemütliche Zeit." },
+      { time: 183, text: "Eine Luftmatratze, ein guter Wein," },
+      { time: 186, text: "Familie dabei, so soll es sein." },
+      { time: 189, text: "Die Sterne funkeln, die Nacht wird still," },
+      { time: 192, text: "weil Rolf genau hier sein will." },
+      { time: 195, text: "Und Major Rolf macht einen Scherz," },
+      { time: 198, text: "dann hebt er ab und…" },
+      { time: 201, text: "Völlig losgelöst von der Erde" },
+      { time: 204, text: "stoßen wir heute gemeinsam an!" },
+      { time: 207, text: "Auf Gesundheit, Glück und frohe Stunden –" },
+      { time: 210, text: "und Major Rolf fliegt weiter seine Runden!" }
+    ];
+
+    // 2. Zeilen in HTML generieren
+    songtext.forEach((zeile, index) => {
+      const div = document.createElement('div');
+      div.className = 'songzeile';
+      div.id = 'zeile-' + index;
+      div.innerText = zeile.text;
+      scrollBox.appendChild(div);
+    });
+
+    let aktuellerIndex = -1;
+
+    // 3. Karaoke-Update-Funktion
+    function updateKaraoke() {
+      const aktuelleZeit = audio.currentTime;
+      let neuIndex = -1;
+
+      for (let i = 0; i < songtext.length; i++) {
+        if (aktuelleZeit >= songtext[i].time) {
+          neuIndex = i;
+        } else {
+          break;
+        }
+      }
+
+      if (neuIndex !== aktuellerIndex && neuIndex !== -1) {
+        if (aktuellerIndex !== -1) {
+          document.getElementById('zeile-' + aktuellerIndex).classList.remove('aktiv');
+        }
+        
+        aktuellerIndex = neuIndex;
+        const aktiveZeile = document.getElementById('zeile-' + aktuellerIndex);
+        aktiveZeile.classList.add('aktiv');
+
+        const offset = aktiveZeile.offsetTop;
+        const fensterMitte = karaokeFenster.clientHeight / 2;
+        const zeilenMitte = aktiveZeile.clientHeight / 2;
+        const scrollVerschiebung = offset - fensterMitte + zeilenMitte;
+        
+        scrollBox.style.transform = `translateY(-${scrollVerschiebung}px)`;
+      }
+    }
+
+    // 4. Player-Steuerung (Play/Pause Optik anpassen)
+    function updatePlayButton() {
+      if (audio.paused) {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+        playBtn.setAttribute('aria-label', 'Audio abspielen');
+        karaokeFenster.classList.remove('is-playing');
+        playBtn.classList.remove('hidden'); 
+      } else {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+        playBtn.setAttribute('aria-label', 'Audio pausieren');
+        karaokeFenster.classList.add('is-playing');
+        playBtn.classList.add('hidden'); 
+      }
+    }
+
+    // Event Listener für Play/Pause
+    playBtn.addEventListener('click', async () => {
+      if (audio.paused) {
+        try {
+          await audio.play();
+          updatePlayButton();
+        } catch (error) {
+          console.error('Audio konnte nicht abgespielt werden:', error);
+        }
+      } else {
+        audio.pause();
+        updatePlayButton();
+      }
+    });
+
+    // Wiederherstellen des Buttons bei Klick ins Leere
+    document.body.addEventListener('click', () => {
+      if (playBtn.classList.contains('hidden')) {
+        playBtn.classList.remove('hidden');
+      }
+    });
+
+    // An den Zeit-Update-Event anhängen, um Karaoke zu scrollen
+    audio.addEventListener('timeupdate', updateKaraoke);
+
+    // Beim Springen im Lied
+    audio.addEventListener('seeked', updateKaraoke);
+
+    // Am Ende des Liedes
+    audio.addEventListener('ended', () => {
+      updatePlayButton();
+      audio.currentTime = 0;
+      updateKaraoke();
+    });
+
+    audio.addEventListener('error', () => {
+      console.error('Die Audiodatei konnte nicht geladen werden.');
+    });
+  </script>
+
+</body>
+</html>
