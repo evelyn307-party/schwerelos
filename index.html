@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Major Rolf – Sichtbarkeitstest</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<img src="background.jpg" class="background" alt="">
+
+<div class="lyrics">
+<div class="line heading">1. STROPHE</div>
+<div class="line ">Gründlich durchgecheckt steht er heut da,</div>
+<div class="line ">siebzig Jahre – wunderbar!</div>
+<div class="line ">Die Familie wartet alle sind bereit</div>
+<div class="line ">denn heute feiern wir deine Zeit!</div>
+<div class="line ">Die Gläser hoch, wir stoßen an,</div>
+<div class="line ">weil man mit siebzig richtig feiern kann.</div>
+<div class="line ">Jeder weiß genau, was heute zählt:</div>
+<div class="line ">Dass Major Rolf uns alle liebt!</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line heading">⚡ REFRAIN</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">schwebt Major Rolf fast schwerelos.</div>
+<div class="line ">Siebzig Jahre mit Glück verbunden,</div>
+<div class="line ">und die Party läuft schon seit Stunden.</div>
+<div class="line ">Die Chemie stimmt ganz genau,</div>
+<div class="line ">denn Rolf, wir wissen auch:</div>
+<div class="line ">Mit dir wird jeder Abend groß!</div>
+<div class="line heading">⚡ 2. STROPHE</div>
+<div class="line ">Im Labor da war er in seinem Element,</div>
+<div class="line ">wo er jede Formel und Reaktion kennt.</div>
+<div class="line ">Chemiker mit Herz und Verstand,</div>
+<div class="line ">mit sicherer Hand und stets gespannt.</div>
+<div class="line ">Öle aller Konsistenz –</div>
+<div class="line ">Rolf verbindet sie mit Exzellenz</div>
+<div class="line ">und liefert Schmierstoff-Kompetenz!</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line heading">⚡ REFRAIN</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">schwebt Major Rolf fast schwerelos.</div>
+<div class="line ">Siebzig Jahre mit Glück verbunden</div>
+<div class="line ">und die Party läuft schon seit Stunden.</div>
+<div class="line ">Siebzig Jahre – welch ein Leben,</div>
+<div class="line ">und noch ganz viel Gas zu geben!</div>
+<div class="line ">Major Rolf, mit dir wird jeder Abend groß!</div>
+<div class="line heading">⚡ 3. STROPHE</div>
+<div class="line ">Siebzig Jahre dauert nun schon deine Reise,</div>
+<div class="line ">mal laut und lustig, mal ganz leise.</div>
+<div class="line ">Doch eines bleibt ganz sonnenklar:</div>
+<div class="line ">Major Rolf ist immer für uns da!</div>
+<div class="line ">Er hat keine Zeit, sich auszuruhn,</div>
+<div class="line ">denn es gibt noch viel zu tun.</div>
+<div class="line ">Kinder und Enkel, alle sind da</div>
+<div class="line ">und sagen gemeinsam: „Rolf, du bist wunderbar!“</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line heading">⚡ REFRAIN</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">schwebt Major Rolf fast schwerelos.</div>
+<div class="line ">Siebzig Jahre mit Glück verbunden</div>
+<div class="line ">und die Party läuft schon seit Stunden.</div>
+<div class="line ">Siebzig Jahre – welch ein Leben,</div>
+<div class="line ">und noch ganz viel Gas zu geben!</div>
+<div class="line ">Major Rolf, mit dir wird jeder Abend groß!</div>
+<div class="line heading">★ FINALE ★</div>
+<div class="line ">Und wenn der Abend beginnt,</div>
+<div class="line ">man auf der Wiese zusammenfindet,</div>
+<div class="line ">dann knistert das Feuer, der Himmel wird weit,</div>
+<div class="line ">und Rolf genießt diese gemütliche Zeit.</div>
+<div class="line ">Eine Luftmatratze, ein guter Wein,</div>
+<div class="line ">Familie dabei, so soll es sein.</div>
+<div class="line ">Die Sterne funkeln, die Nacht wird still,</div>
+<div class="line ">weil Rolf genau hier sein will.</div>
+<div class="line ">Und Major Rolf macht einen Scherz,</div>
+<div class="line ">dann hebt er ab und…</div>
+<div class="line ">Völlig losgelöst von der Erde</div>
+<div class="line ">stoßen wir heute gemeinsam an!</div>
+<div class="line ">Auf Gesundheit, Glück und frohe Stunden  – und Major Rolf fliegt weiter seine Runden!</div>
+</div>
+
+<audio id="audio" src="audio.mp3" preload="auto"></audio>
+
+<button id="play" type="button" aria-label="Song abspielen">▶</button>
+
+<script>
+const audio = document.getElementById('audio');
+const lyrics = document.getElementById('lyrics');
+const play = document.getElementById('play');
+
+let rafId = null;
+let fallbackDuration = 285;
+
+function updateCrawl() {
+  const duration = Number.isFinite(audio.duration) && audio.duration > 0
+    ? audio.duration
+    : fallbackDuration;
+
+  const progress = Math.max(0, Math.min(1, audio.currentTime / duration));
+
+  // Drei Phasen: groß/nah -> kleiner -> weit hinten.
+  let translateY;
+  let translateZ;
+  let scale;
+
+  if (progress < 0.35) {
+    const p = progress / 0.35;
+    translateY = -28 * p;
+    translateZ = -180 * p;
+    scale = 1 - 0.12 * p;
+  } else if (progress < 0.70) {
+    const p = (progress - 0.35) / 0.35;
+    translateY = -28 - 67 * p;
+    translateZ = -180 - 250 * p;
+    scale = 0.88 - 0.26 * p;
+  } else {
+    const p = (progress - 0.70) / 0.30;
+    translateY = -95 - 110 * p;
+    translateZ = -430 - 370 * p;
+    scale = 0.62 - 0.32 * p;
+  }
+
+  lyrics.style.transform =
+    `translateX(-50%) rotateX(52deg) translateY(${translateY}vh) translateZ(${translateZ}px) scale(${scale})`;
+
+  if (!audio.paused && !audio.ended) {
+    rafId = requestAnimationFrame(updateCrawl);
+  }
+}
+
+function startCrawl() {
+  cancelAnimationFrame(rafId);
+  updateCrawl();
+}
+
+function resetCrawl() {
+  cancelAnimationFrame(rafId);
+  lyrics.style.transform =
+    'translateX(-50%) rotateX(52deg) translateY(0) translateZ(0) scale(1)';
+}
+
+play.addEventListener('click', async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (e) {
+      console.error('Audio konnte nicht abgespielt werden:', e);
+      return;
+    }
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener('play', () => {
+  play.textContent = 'Ⅱ';
+  startCrawl();
+
+  setTimeout(() => {
+    if (!audio.paused) {
+      play.classList.add('hide');
+    }
+  }, 700);
+});
+
+audio.addEventListener('pause', () => {
+  play.textContent = '▶';
+  play.classList.remove('hide');
+  cancelAnimationFrame(rafId);
+});
+
+audio.addEventListener('seeking', updateCrawl);
+audio.addEventListener('timeupdate', () => {
+  // Fallback für Browser, die requestAnimationFrame im Hintergrund drosseln.
+  if (!audio.paused) updateCrawl();
+});
+
+audio.addEventListener('ended', () => {
+  play.textContent = '▶';
+  play.classList.remove('hide');
+  resetCrawl();
+});
+
+document.addEventListener('pointerdown', (e) => {
+  if (e.target === play || audio.paused) return;
+
+  play.classList.remove('hide');
+  clearTimeout(window.t);
+  window.t = setTimeout(() => {
+    if (!audio.paused) play.classList.add('hide');
+  }, 1000);
+});
+</script>
+</body>
+</html>
