@@ -1,0 +1,211 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hintergrundbild unverändert */
+.background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Bühne */
+.space-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+
+  perspective: 420px;
+  perspective-origin: 50% 115%;
+}
+
+/*
+ * Der Text startet weit unten und bewegt sich nach oben.
+ * Durch rotateX entsteht die typische nach hinten wegkippende Perspektive.
+ */
+.crawl {
+  position: absolute;
+
+  left: 50%;
+  top: 100%;
+
+  width: min(78vw, 850px);
+
+  transform:
+    translateX(-50%)
+    rotateX(42deg);
+
+  transform-origin: 50% 100%;
+
+  text-align: center;
+
+  animation: starwars-crawl 205s linear forwards;
+  animation-play-state: paused;
+
+  will-change: transform;
+}
+
+body:has(.play-button.playing) .crawl {
+  animation-play-state: running;
+}
+
+.crawl-line,
+.crawl-section {
+  color: #fff;
+
+  font-weight: 700;
+  line-height: 1.55;
+
+  text-shadow:
+    0 2px 4px rgba(0,0,0,1),
+    0 0 10px rgba(0,0,0,.95),
+    0 0 18px rgba(0,0,0,.8);
+}
+
+.crawl-line {
+  margin-bottom: 22px;
+  font-size: clamp(22px, 3vw, 38px);
+}
+
+.crawl-section {
+  margin: 38px 0 28px;
+
+  font-size: clamp(18px, 2.3vw, 29px);
+  letter-spacing: .06em;
+}
+
+/*
+ * Sehr langes Finale darf etwas kleiner werden, damit es als
+ * eine zusammenhängende Zeile behandelt wird.
+ */
+.crawl-line:last-child {
+  margin-bottom: 120px;
+}
+
+/* Der eigentliche Star-Wars-Aufstieg */
+@keyframes starwars-crawl {
+  from {
+    transform:
+      translate(-50%, 0)
+      rotateX(42deg);
+  }
+
+  to {
+    transform:
+      translate(-50%, -255%)
+      rotateX(42deg);
+  }
+}
+
+/* Play/Pause */
+.play-button {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 5;
+
+  width: clamp(75px, 15vw, 120px);
+  height: clamp(75px, 15vw, 120px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  color: #fff;
+  background: rgba(0,0,0,.62);
+
+  border: 3px solid #fff;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,.5);
+
+  transition:
+    opacity .45s ease,
+    transform .2s ease,
+    background .2s ease;
+}
+
+.play-button:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  background: rgba(0,0,0,.8);
+}
+
+.play-button:active {
+  transform: translate(-50%, -50%) scale(.95);
+}
+
+.play-button.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.play-button svg {
+  width: clamp(32px, 6vw, 52px);
+  height: clamp(32px, 6vw, 52px);
+}
+
+#playIcon {
+  margin-left: 4px;
+}
+
+@media (max-width: 600px) {
+  .crawl {
+    width: 82vw;
+  }
+
+  .crawl-line {
+    margin-bottom: 17px;
+    font-size: clamp(18px, 5vw, 27px);
+  }
+
+  .crawl-section {
+    margin: 28px 0 20px;
+    font-size: clamp(16px, 4vw, 23px);
+  }
+
+  .play-button {
+    width: 80px;
+    height: 80px;
+    border-width: 2px;
+  }
+
+  .play-button svg {
+    width: 36px;
+    height: 36px;
+  }
+}
